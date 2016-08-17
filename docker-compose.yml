@@ -1,9 +1,7 @@
 version: '2'
 services:
-  docker-sabnzbd:
+  sabnzbd:
     build: .
     image: jameseck/sabnzbd
-    environment:
-      DEBUG: "no"
     ports:
     - 8080:8080
