@@ -79,8 +79,15 @@ objects:
       test: false
       triggers:
       - type: ConfigChange
-      - type: ImageChange
-        imageChange: {}
+      - imageChangeParams:
+          automatic: true
+          containerNames:
+          - sabnzbd
+          from:
+            kind: ImageStreamTag
+            name: sabnzbd:latest
+            namespace: test
+        type: ImageChange
   - apiVersion: v1
     kind: Route
     metadata:
