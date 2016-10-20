@@ -2,6 +2,6 @@ version: '2'
 services:
   sabnzbd:
     build: .
-    image: jameseck/sabnzbd
+    image: jameseckersall/sabnzbd
     ports:
     - 8080:8080

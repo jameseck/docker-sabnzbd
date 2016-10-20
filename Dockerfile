@@ -1,8 +1,12 @@
-FROM alpine
+FROM jameseckersall/alpine-base
 
 MAINTAINER James Eckersall <james.eckersall@gmail.com>
 
-ENV SABNZBD_VERSION=1.1.0RC3
+COPY files /
+
+ENV \
+  SABNZBD_VERSION=1.1.0RC3 \
+  HOME=/config
 
 RUN \
   apk add --update gcc autoconf automake curl git g++ make python-dev openssl-dev libffi-dev && \
@@ -24,6 +28,3 @@ RUN \
 EXPOSE 8080
 
 VOLUME ["/config", "/downloads"]
-ENV HOME /config
-
-CMD ["/usr/bin/python", "/opt/sabnzbd/SABnzbd.py", "-f", "/config/sabnzbd.ini", "-s", "0.0.0.0:8080"]
