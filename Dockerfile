@@ -6,7 +6,8 @@ COPY files /
 
 ENV \
   SABNZBD_VERSION=1.1.0RC3 \
-  HOME=/config
+  HOME=/config \
+  TEST=1
 
 RUN \
   apk add --update gcc autoconf automake curl git g++ make python-dev openssl-dev libffi-dev && \
