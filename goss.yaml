@@ -2,8 +2,8 @@ process:
   python:
     running: true
 http:
-  "http://localhost:8080/sabnzbd/wizard/":
+  "http://localhost:8080/sabnzbd/api":
     status: 200
     timeout: 1000
     body:
-    - '<title>SABnzbd Quick-Start Wizard</title>'
+    - 'error: API Key Required'
