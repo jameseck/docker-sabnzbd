@@ -1,8 +1,6 @@
-FROM jameseckersall/alpine-base
+FROM alpine:latest
 
 MAINTAINER James Eckersall <james.eckersall@gmail.com>
-
-COPY files /
 
 ENV \
   SABNZBD_VERSION=1.1.0RC3 \
@@ -26,6 +24,24 @@ RUN \
   apk del gcc autoconf automake git g++ make python-dev openssl-dev libffi-dev && \
   rm -rf /var/cache/apk/* /root/par2cmdline /root/pip.py /root/yenc-0.4.0.tar.gz /root/yenc-0.4.0 /opt/sabnzbd/osx /opt/sabnzbd/win /opt/sabnzbd/.git
 
+# Latest unstable release
+#  curl -L \
+#    $(curl -s \
+#        https://api.github.com/repos/sabnzbd/sabnzbd/releases/latest \
+#      | jq -r ".assets[] | select(.name | test(\"Jackett.Binaries.Mono.tar.gz\")) | .browser_download_url" \
+#    ) \
+#    -o /tmp/Sabnzbd.tar.gz && \
+
+# Latest stable release
+# URL=$(curl -s \
+#   https://api.github.com/repos/sabnzbd/sabnzbd/releases \
+# | jq -r "[ .[] | .assets[] | select(.name | test(\"SABnzbd-[0-9.]+-src.tar.gz\")) ] | first | .browser_download_url")
+
+# Version X
+# curl https://api.github.com/repos/sabnzbd/sabnzbd/releases | jq -r " .[] | .assets[] | select(.name | test(\"SABnzbd-${SABNZBD_VERSION}-src.tar.gz\")) | .browser_download_url"
+
 EXPOSE 8080
 
 VOLUME ["/config", "/downloads"]
+
+ENTRYPOINT [ "/usr/bin/python", "/opt/sabnzbd/SABnzbd.py", "-f", "/config/sabnzbd.ini", "-s", "0.0.0.0:8080", "-b", "0" ]

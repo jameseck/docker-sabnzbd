@@ -1,0 +1,9 @@
+process:
+  python:
+    running: true
+http:
+  "http://localhost:8080/sabnzbd/wizard/":
+    status: 200
+    timeout: 1000
+    body:
+    - '<title>SABnzbd Quick-Start Wizard</title>'

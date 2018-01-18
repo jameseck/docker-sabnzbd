@@ -3,5 +3,6 @@ services:
   sabnzbd:
     build: .
     image: jameseckersall/sabnzbd
+    user: "100000:100000"
     ports:
     - 8080:8080
