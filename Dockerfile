@@ -23,8 +23,8 @@ RUN \
   python setup.py build && python setup.py install && \
   apk del gcc autoconf automake git g++ make python-dev openssl-dev libffi-dev && \
   mkdir -p /opt/sabnzbd && \
-  curl "${SABNZBD_URL}" -o "/root/sabnzbd-${SABNZBD_VERSION}.tar.gz" && \
-  tar zxvf "/root/sabnzbd-${SABNZBD_VERSION}" --strip 1 -C /opt/sabnzbd/ && \
+  curl -L "${SABNZBD_URL}" -o "/root/sabnzbd-${SABNZBD_VERSION}.tar.gz" && \
+  tar zxvf "/root/sabnzbd-${SABNZBD_VERSION}.tar.gz" --strip 1 -C /opt/sabnzbd/ && \
   rm -rf /var/cache/apk/* /root/par2cmdline /root/pip.py "/root/yenc-${YENC_VERSION}.tar.gz" "/root/yenc-${YENC_VERSION}"
 
 # Latest unstable release
