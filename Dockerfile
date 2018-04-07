@@ -22,7 +22,7 @@ RUN \
   cd "/root/yenc-${YENC_VERSION}" && \
   python setup.py build && python setup.py install && \
   apk del gcc autoconf automake git g++ make python-dev openssl-dev libffi-dev && \
-  mkdir /opt/sabnzbd && \
+  mkdir -p /opt/sabnzbd && \
   wget "${SABNZBD_URL}" -O "/opt/sabnzbd-${SABNZBD_VERSION}.tar.gz" && \
   tar zxvf "/opt/sabnzbd-${SABNZBD_VERSION}" --strip 1 -C opt/sabnzbd && \
   rm -rf /var/cache/apk/* /root/par2cmdline /root/pip.py "/root/yenc-${YENC_VERSION}.tar.gz" "/root/yenc-${YENC_VERSION}"
