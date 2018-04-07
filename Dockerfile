@@ -2,8 +2,11 @@ FROM alpine:latest
 
 MAINTAINER James Eckersall <james.eckersall@gmail.com>
 
+ARG SABNZBD_VERSION=2.3.2
+ARG SABNZBD_URL=https://github.com/sabnzbd/sabnzbd/releases/download/2.3.2/SABnzbd-2.3.2-src.tar.gz
+ARG YENC_VERSION=0.4.0
+
 ENV \
-  SABNZBD_VERSION=1.1.0RC3 \
   HOME=/config \
   TEST=1
 
@@ -14,15 +17,15 @@ RUN \
   aclocal && automake --add-missing && autoconf && ./configure && make && make install && \
   apk add unrar unzip p7zip py-pip openssl libffi && \
   pip install cheetah configobj feedparser pyOpenSSL && \
-  curl http://www.golug.it/pub/yenc/yenc-0.4.0.tar.gz -o /root/yenc-0.4.0.tar.gz && \
-  tar -C /root -zxf /root/yenc-0.4.0.tar.gz && \
-  cd /root/yenc-0.4.0 && \
+  curl "http://www.golug.it/pub/yenc/yenc-${YENC_VERSION}.tar.gz" -o "/root/yenc-${YENC_VERSION}.tar.gz" && \
+  tar -C /root -zxf "/root/yenc-${YENC_VERSION}.tar.gz" && \
+  cd "/root/yenc-${YENC_VERSION}" && \
   python setup.py build && python setup.py install && \
-  mkdir /opt && cd /opt && \
-  git clone -b ${SABNZBD_VERSION} https://github.com/sabnzbd/sabnzbd sabnzbd && \
-  cd /opt/sabnzbd && \
   apk del gcc autoconf automake git g++ make python-dev openssl-dev libffi-dev && \
-  rm -rf /var/cache/apk/* /root/par2cmdline /root/pip.py /root/yenc-0.4.0.tar.gz /root/yenc-0.4.0 /opt/sabnzbd/osx /opt/sabnzbd/win /opt/sabnzbd/.git
+  mkdir /opt/sabnzbd && \
+  wget "${SABNZBD_URL}" -O "/opt/sabnzbd-${SABNZBD_VERSION}.tar.gz" && \
+  tar zxvf "/opt/sabnzbd-${SABNZBD_VERSION}" --strip 1 -C opt/sabnzbd && \
+  rm -rf /var/cache/apk/* /root/par2cmdline /root/pip.py "/root/yenc-${YENC_VERSION}.tar.gz" "/root/yenc-${YENC_VERSION}"
 
 # Latest unstable release
 #  curl -L \
