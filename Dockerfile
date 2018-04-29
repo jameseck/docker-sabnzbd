@@ -2,8 +2,8 @@ FROM alpine:latest
 
 MAINTAINER James Eckersall <james.eckersall@gmail.com>
 
-ARG SABNZBD_VERSION=2.3.2
-ARG SABNZBD_URL=https://github.com/sabnzbd/sabnzbd/releases/download/2.3.2/SABnzbd-2.3.2-src.tar.gz
+ARG SABNZBD_VERSION=2.3.3
+ARG SABNZBD_URL=https://github.com/sabnzbd/sabnzbd/releases/download/2.3.3/SABnzbd-2.3.3-src.tar.gz
 ARG YENC_VERSION=0.4.0
 
 ENV \
