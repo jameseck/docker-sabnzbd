@@ -16,7 +16,7 @@ RUN \
   cd /root/par2cmdline && \
   aclocal && automake --add-missing && autoconf && ./configure && make && make install && \
   apk add unrar unzip p7zip py-pip openssl libffi && \
-  pip install cheetah configobj feedparser pyOpenSSL sabyenc && \
+  pip install "cheetah" "configobj" "feedparser" "pyOpenSSL" "sabyenc" "babelfish" "deluge-client" "gevent" "guessit==1.0.3" "qtfaststart" "requests-cache" "requests[security]" "stevedore==1.19.1" "subliminal<2" && \
   curl "http://www.golug.it/pub/yenc/yenc-${YENC_VERSION}.tar.gz" -o "/root/yenc-${YENC_VERSION}.tar.gz" && \
   tar -C /root -zxf "/root/yenc-${YENC_VERSION}.tar.gz" && \
   cd "/root/yenc-${YENC_VERSION}" && \
