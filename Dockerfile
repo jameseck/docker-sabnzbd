@@ -11,7 +11,7 @@ ENV \
   TEST=1
 
 RUN \
-  apk add --update gcc autoconf automake curl git g++ make python-dev openssl-dev libffi-dev && \
+  apk add --update gcc autoconf automake bash curl git g++ make python-dev openssl-dev libffi-dev && \
   git clone https://github.com/Parchive/par2cmdline /root/par2cmdline && \
   cd /root/par2cmdline && \
   aclocal && automake --add-missing && autoconf && ./configure && make && make install && \
@@ -43,8 +43,11 @@ RUN \
 # Version X
 # curl https://api.github.com/repos/sabnzbd/sabnzbd/releases | jq -r " .[] | .assets[] | select(.name | test(\"SABnzbd-${SABNZBD_VERSION}-src.tar.gz\")) | .browser_download_url"
 
+COPY run.sh /run.sh
+RUN chmod 0755 /run.sh
+
 EXPOSE 8080
 
 VOLUME ["/config", "/downloads"]
 
-ENTRYPOINT [ "/usr/bin/python", "/opt/sabnzbd/SABnzbd.py", "-f", "/config/sabnzbd.ini", "-s", "0.0.0.0:8080", "-b", "0" ]
+ENTRYPOINT [ "/run.sh" ]
