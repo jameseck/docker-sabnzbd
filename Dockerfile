@@ -4,7 +4,6 @@ MAINTAINER James Eckersall <james.eckersall@gmail.com>
 
 ARG SABNZBD_VERSION=2.3.9
 ARG SABNZBD_URL=https://github.com/sabnzbd/sabnzbd/releases/download/2.3.9/SABnzbd-2.3.9-src.tar.gz
-ARG YENC_VERSION=0.4.0
 
 ENV \
   HOME=/config \
@@ -16,16 +15,12 @@ RUN \
   cd /root/par2cmdline && \
   aclocal && automake --add-missing && autoconf && ./configure && make && make install && \
   apk add unrar unzip p7zip py-pip openssl libffi && \
-  pip install "cheetah" "configobj" "feedparser" "pyOpenSSL" "sabyenc" "babelfish" "deluge-client" "gevent" "guessit==1.0.3" "qtfaststart" "requests-cache" "requests[security]" "stevedore==1.19.1" "subliminal<2" && \
-  curl "http://www.golug.it/pub/yenc/yenc-${YENC_VERSION}.tar.gz" -o "/root/yenc-${YENC_VERSION}.tar.gz" && \
-  tar -C /root -zxf "/root/yenc-${YENC_VERSION}.tar.gz" && \
-  cd "/root/yenc-${YENC_VERSION}" && \
-  python setup.py build && python setup.py install && \
+  pip install "cheetah" "configobj" "feedparser" "pyOpenSSL" "babelfish" "deluge-client" "gevent" "guessit==1.0.3" "qtfaststart" "requests-cache" "requests[security]" "sabyenc>3.3.1" "stevedore==1.19.1" "subliminal<2" && \
   apk del gcc autoconf automake git g++ make python-dev openssl-dev libffi-dev && \
   mkdir -p /opt/sabnzbd && \
   curl -L "${SABNZBD_URL}" -o "/root/sabnzbd-${SABNZBD_VERSION}.tar.gz" && \
   tar zxvf "/root/sabnzbd-${SABNZBD_VERSION}.tar.gz" --strip 1 -C /opt/sabnzbd/ && \
-  rm -rf /var/cache/apk/* /root/par2cmdline /root/pip.py "/root/yenc-${YENC_VERSION}.tar.gz" "/root/yenc-${YENC_VERSION}"
+  rm -rf /var/cache/apk/* /root/par2cmdline /root/pip.py
 
 # Latest unstable release
 #  curl -L \
